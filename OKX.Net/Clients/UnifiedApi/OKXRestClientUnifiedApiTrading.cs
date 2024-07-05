@@ -114,11 +114,11 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         if (result.Data.ErrorCode > 0)
         {
-            var detailed = result.Data.Data.FirstOrDefault(x => !x.Success);
-            if (detailed != null)
-                return result.AsError<IEnumerable<OKXOrderPlaceResponse>>(new OKXRestApiError(detailed.Code, detailed.Message, null));
+            //var detailed = result.Data.Data.FirstOrDefault(x => !x.Success);
+            //if (detailed != null)
+            //    return result.AsError<IEnumerable<OKXOrderPlaceResponse>>(new OKXRestApiError(detailed.Code, detailed.Message, null));
 
-            return result.AsError<IEnumerable<OKXOrderPlaceResponse>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+            return result.AsError<IEnumerable<OKXOrderPlaceResponse>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data.Data));
         }
 
         foreach (var order in result.Data.Data.Where(o => o.Success))
@@ -318,7 +318,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
         parameters.AddOptionalEnum("state", state);
 
         var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v5/trade/orders-pending", OKXExchange.RateLimiter.EndpointGate, 1, true,
-            limitGuard: new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey)); 
+            limitGuard: new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
         return await _baseClient.SendAsync<IEnumerable<OKXOrder>>(request, parameters, ct).ConfigureAwait(false);
     }
 

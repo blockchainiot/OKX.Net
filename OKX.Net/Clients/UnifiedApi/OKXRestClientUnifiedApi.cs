@@ -69,7 +69,7 @@ internal class OKXRestClientUnifiedApi : RestApiClient, IOKXRestClientUnifiedApi
     {
         var result = await base.SendAsync<OKXRestApiResponse<T>>(baseAddress, definition, parameters, cancellationToken, requestHeaders, weight).ConfigureAwait(false);
         if (!result.Success) return result.AsError<T>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<T>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<T>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data.Data));
 
         return result.As<T>(result.Data.Data);
     }
@@ -90,7 +90,7 @@ internal class OKXRestClientUnifiedApi : RestApiClient, IOKXRestClientUnifiedApi
         var result = await SendToAddressAsync<IEnumerable<T>>(BaseAddress, definition, parameters, cancellationToken, weight, requestHeaders).ConfigureAwait(false);
         if (!result)
             return result.As<T>(default);
-        
+
         if (!result.Data.Any())
             return result.AsError<T>(new ServerError("No response data"));
 
@@ -101,7 +101,7 @@ internal class OKXRestClientUnifiedApi : RestApiClient, IOKXRestClientUnifiedApi
     {
         var result = await base.SendAsync<OKXRestApiResponse<T>>(baseAddress, definition, queryParameters, bodyParameters, cancellationToken, null, weight).ConfigureAwait(false);
         if (!result.Success) return result.AsError<T>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<T>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<T>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data.Data));
 
         return result.As<T>(result.Data.Data);
     }
@@ -332,9 +332,9 @@ internal class OKXRestClientUnifiedApi : RestApiClient, IOKXRestClientUnifiedApi
             Status = orderResult.Data.OrderState == Enums.OrderStatus.Canceled ? CommonOrderStatus.Canceled :
                      orderResult.Data.OrderState == Enums.OrderStatus.Filled ? CommonOrderStatus.Filled :
                      CommonOrderStatus.Filled,
-            Side = orderResult.Data.OrderSide == Enums.OrderSide.Sell ? CommonOrderSide.Sell: CommonOrderSide.Buy,
+            Side = orderResult.Data.OrderSide == Enums.OrderSide.Sell ? CommonOrderSide.Sell : CommonOrderSide.Buy,
             Type = orderResult.Data.OrderType == Enums.OrderType.Limit ? CommonOrderType.Limit
-                 : orderResult.Data.OrderType == Enums.OrderType.Market ? CommonOrderType.Market:
+                 : orderResult.Data.OrderType == Enums.OrderType.Market ? CommonOrderType.Market :
                   CommonOrderType.Other,
             SourceObject = orderResult.Data
         });
@@ -374,7 +374,7 @@ internal class OKXRestClientUnifiedApi : RestApiClient, IOKXRestClientUnifiedApi
         if (!ordersResult)
             return ordersResult.As<IEnumerable<Order>>(default);
 
-        return ordersResult.As(ordersResult.Data.Select( x => new Order
+        return ordersResult.As(ordersResult.Data.Select(x => new Order
         {
             Id = x.OrderId.ToString(),
             Price = x.Price,

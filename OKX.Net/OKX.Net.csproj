@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>JK.OKX.Net</PackageId>
+    <PackageId>OKX.Net</PackageId>
     <Authors>JKorf</Authors>
     <PackageVersion>2.0.0</PackageVersion>
     <FileVersion>2.0.0</FileVersion>
@@ -39,6 +39,7 @@
   <PropertyGroup>
     <PackageProjectUrl>https://github.com/jkorf/OKX.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jkorf/OKX.Net</RepositoryUrl>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Icon\icon.png" Pack="true" PackagePath="" />

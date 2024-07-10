@@ -169,7 +169,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrderCancelResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_CancelOrder), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXOrderCancelResponse>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXOrderCancelResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXOrderCancelResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         var orderResult = result.Data.Data.FirstOrDefault();
         _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
@@ -190,7 +190,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrderCancelResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_CancelBatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXOrderCancelResponse>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrderCancelResponse>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrderCancelResponse>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
 
         foreach (var order in result.Data.Data!)
@@ -247,7 +247,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrderAmendResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_AmendOrder), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXOrderAmendResponse>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXOrderAmendResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXOrderAmendResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }
@@ -261,7 +261,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrderAmendResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_AmendBatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXOrderAmendResponse>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrderAmendResponse>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrderAmendResponse>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -291,7 +291,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXClosePositionResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_ClosePosition), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXClosePositionResponse>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXClosePositionResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXClosePositionResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }
@@ -311,7 +311,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrder>>>(_baseClient.GetUri(Endpoints_V5_Trade_Order), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXOrder>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXOrder>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXOrder>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }
@@ -351,7 +351,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrder>>>(_baseClient.GetUri(Endpoints_V5_Trade_OrdersPending), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXOrder>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -398,7 +398,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrder>>>(_baseClient.GetUri(Endpoints_V5_Trade_OrdersHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXOrder>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -446,7 +446,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXOrder>>>(_baseClient.GetUri(Endpoints_V5_Trade_OrdersHistoryArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXOrder>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -483,7 +483,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXTransaction>>>(_baseClient.GetUri(Endpoints_V5_Trade_Fills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXTransaction>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXTransaction>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXTransaction>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -519,7 +519,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXTransaction>>>(_baseClient.GetUri(Endpoints_V5_Trade_FillsHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXTransaction>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXTransaction>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXTransaction>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -613,13 +613,13 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         if (result.Data.ErrorCode > 0)
         {
-            var detailed = result.Data.Data.FirstOrDefault();
-            if (detailed != null)
-            {
-                return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(Convert.ToInt32(detailed.Code), detailed.Message, null));
-            }
+            //var detailed = result.Data.Data.FirstOrDefault();
+            //if (detailed != null)
+            //{
+            //    return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(Convert.ToInt32(detailed.Code), detailed.Message, null));
+            //}
 
-            return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+            return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
         }
 
         return result.As(result.Data.Data.FirstOrDefault());
@@ -634,7 +634,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXAlgoOrderResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_CancelAlgos), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXAlgoOrderResponse>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }
@@ -648,7 +648,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXAlgoOrderResponse>>>(_baseClient.GetUri(Endpoints_V5_Trade_CancelAdvanceAlgos), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXAlgoOrderResponse>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrderResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }
@@ -682,7 +682,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXAlgoOrder>>>(_baseClient.GetUri(Endpoints_V5_Trade_OrdersAlgoPending), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXAlgoOrder>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXAlgoOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXAlgoOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -720,7 +720,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXAlgoOrder>>>(_baseClient.GetUri(Endpoints_V5_Trade_OrdersAlgoHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<IEnumerable<OKXAlgoOrder>>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXAlgoOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OKXAlgoOrder>>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data!);
     }
@@ -737,7 +737,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXAlgoOrder>>>(_baseClient.GetUri("api/v5/trade/order-algo"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXAlgoOrder>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrder>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrder>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }
@@ -779,7 +779,7 @@ internal class OKXRestClientUnifiedApiTrading : IOKXRestClientUnifiedApiTrading
 
         var result = await _baseClient.ExecuteAsync<OKXRestApiResponse<IEnumerable<OKXAlgoOrderAmendResponse>>>(_baseClient.GetUri("api/v5/trade/amend-algos"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         if (!result.Success) return result.AsError<OKXAlgoOrderAmendResponse>(result.Error!);
-        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrderAmendResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, null));
+        if (result.Data.ErrorCode > 0) return result.AsError<OKXAlgoOrderAmendResponse>(new OKXRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage!, result.Data));
 
         return result.As(result.Data.Data.FirstOrDefault());
     }

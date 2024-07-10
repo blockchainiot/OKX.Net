@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>JK.OKX.Net</PackageId>
+    <PackageId>Lgd.OKX.Net</PackageId>
     <Authors>JKorf</Authors>
     <PackageVersion>1.11.1</PackageVersion>
     <FileVersion>1.11.1</FileVersion>

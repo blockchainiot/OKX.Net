@@ -36,7 +36,7 @@ namespace OKX.Net
             "https://www.okx.com/docs-v5/en/"
             };
 
-        internal const string ClientOrderId = "1425d83a94fbBCDE";
+        internal const string ClientOrderId = "3a1f9bee6bc4BCDE";
         internal const string ClientOrderIdPrefix = ClientOrderId + LibraryHelpers.ClientOrderIdSeperator;
 
         /// <summary>

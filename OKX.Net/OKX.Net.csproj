@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>JK.OKX.Net</PackageId>
+    <PackageId>Lgd.OKX.Net</PackageId>
     <Authors>JKorf</Authors>
     <PackageVersion>2.14.5</PackageVersion>
     <FileVersion>2.14.5</FileVersion>

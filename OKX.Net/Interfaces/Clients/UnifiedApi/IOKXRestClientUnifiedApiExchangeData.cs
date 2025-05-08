@@ -252,14 +252,6 @@ public interface IOKXRestClientUnifiedApiExchangeData
     Task<WebCallResult<IEnumerable<OKXOptionSummary>>> GetOptionMarketDataAsync(string underlying, DateTime? expiryDate = null, string? instrumentFamily = null, CancellationToken ct = default);
 
     /// <summary>
-    /// Get the crypto price of signing using Open Oracle smart contract.
-    /// <para><a href="https://www.okx.com/docs-v5/en/#public-data-rest-api-get-oracle" /></para>
-    /// </summary>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    Task<WebCallResult<OKXOracle>> GetOracleAsync(CancellationToken ct = default);
-
-    /// <summary>
     /// Get a symbol order book.
     /// <para><a href="https://www.okx.com/docs-v5/en/#order-book-trading-market-data-get-order-book" /></para>
     /// </summary>
@@ -497,4 +489,24 @@ public interface IOKXRestClientUnifiedApiExchangeData
     /// <param name="ct">Cancellation token</param>
     Task<WebCallResult<IEnumerable<OKXAnnouncementType>>> GetAnnouncementTypesAsync(CancellationToken ct = default);
 
+    /// <summary>
+    /// Get estimated futures settlement price
+    /// <para><a href="https://www.okx.com/docs-v5/en/#public-data-rest-api-get-estimated-future-settlement-price" /></para>
+    /// </summary>
+    /// <param name="symbol">Symbol name, for example `XRP-USDT-250307`</param>
+    /// <param name="ct">Cancellation token</param>
+    /// <returns></returns>
+    Task<WebCallResult<OKXSettlementPrice>> GetEstimatedFuturesSettlementPriceAsync(string symbol, CancellationToken ct = default);
+
+    /// <summary>
+    /// Get settlement history
+    /// <para><a href="https://www.okx.com/docs-v5/en/#public-data-rest-api-get-futures-settlement-history" /></para>
+    /// </summary>
+    /// <param name="symbol">Symbol name, for example `XRP-USDT-250307`</param>
+    /// <param name="startTime">Filter by start time</param>
+    /// <param name="endTime">Filter by end time</param>
+    /// <param name="limit">Max number of results</param>
+    /// <param name="ct">Cancellation token</param>
+    /// <returns></returns>
+    Task<WebCallResult<OKXSettlementInfo[]>> GetSettlementHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 }

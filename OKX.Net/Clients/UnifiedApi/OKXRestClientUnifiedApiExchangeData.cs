@@ -244,14 +244,6 @@ internal class OKXRestClientUnifiedApiExchangeData : IOKXRestClientUnifiedApiExc
     }
 
     /// <inheritdoc />
-    public virtual async Task<WebCallResult<OKXOracle>> GetOracleAsync(CancellationToken ct = default)
-    {
-        var request = _definitions.GetOrCreate(HttpMethod.Get, $"api/v5/market/open-oracle", OKXExchange.RateLimiter.EndpointGate, 1, false,
-            limitGuard: new SingleLimitGuard(1, TimeSpan.FromSeconds(5), RateLimitWindowType.Sliding));
-        return await _baseClient.SendGetSingleAsync<OKXOracle>(request, null, ct).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc />
     public virtual async Task<WebCallResult<OKXIndexComponents>> GetIndexComponentsAsync(string index, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -791,5 +783,37 @@ internal class OKXRestClientUnifiedApiExchangeData : IOKXRestClientUnifiedApiExc
 
     #endregion
 
+    #region Get Estimated Futures Settlement Price
+
+    /// <inheritdoc />
+    public async Task<WebCallResult<OKXSettlementPrice>> GetEstimatedFuturesSettlementPriceAsync(string symbol, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.Add("instId", symbol);
+        var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v5/public/estimated-settlement-info", OKXExchange.RateLimiter.EndpointGate, 1, false,
+            limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+        var result = await _baseClient.SendGetSingleAsync<OKXSettlementPrice>(request, parameters, ct).ConfigureAwait(false);
+        return result;
+    }
+
+    #endregion
+
+    #region Get Estimated Futures Settlement Price
+
+    /// <inheritdoc />
+    public async Task<WebCallResult<OKXSettlementInfo[]>> GetSettlementHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.Add("instId", symbol);
+        parameters.AddOptionalMillisecondsString("after", startTime);
+        parameters.AddOptionalMillisecondsString("before", endTime);
+        parameters.AddOptional("limit", limit);
+        var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v5/public/settlement-history", OKXExchange.RateLimiter.EndpointGate, 1, false,
+            limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+        var result = await _baseClient.SendAsync<OKXSettlementInfo[]>(request, parameters, ct).ConfigureAwait(false);
+        return result;
+    }
+
+    #endregion
 
 }

@@ -89,7 +89,6 @@ namespace OKX.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetRecentTradesAsync("ETH-USDT"), "GetRecentTrades");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetTradeHistoryAsync("ETH-USDT"), "GetTradeHistory");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.Get24HourVolumeAsync(), "Get24HourVolume", useSingleArrayItem: true);
-            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetOracleAsync(), "GetOracle", useSingleArrayItem: true);
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetIndexComponentsAsync("123"), "GetIndexComponents");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetBlockTickersAsync(Enums.InstrumentType.Swap), "GetBlockTickers");
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetBlockTickerAsync("123"), "GetBlockTicker", useSingleArrayItem: true);
@@ -123,6 +122,8 @@ namespace OKX.Net.UnitTests
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetTradeStatsTakerFlowAsync("ETH"), "GetRubikTakerFlow", useSingleArrayItem: true);
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetAnnouncementsAsync("123"), "GetAnnouncements", useSingleArrayItem: true);
             await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetAnnouncementTypesAsync(), "GetAnnouncementTypes");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetEstimatedFuturesSettlementPriceAsync("XRP-USDT-250307"), "GetEstimatedFuturesSettlementPrice");
+            await tester.ValidateAsync(client => client.UnifiedApi.ExchangeData.GetSettlementHistoryAsync("XRP-USDT-250307"), "GetSettlementHistory");
         }
 
         [Test]
